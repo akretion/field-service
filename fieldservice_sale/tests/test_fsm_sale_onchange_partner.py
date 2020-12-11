@@ -59,7 +59,9 @@ class FSMSale(TransactionCase):
         # Link demo FS location to self.shipping_partner
         self.location.partner_id = self.shipping_partner.id
         # create a Sale Order and run onchange_partner_id
-        self.so = self.env["sale.order"].create({"partner_id": self.partner.id})
+        self.so = self.env["sale.order"].create(
+            {"partner_id": self.commercial_partner.id}
+        )
         self.so.onchange_partner_id()
         self.assertEqual(self.so.fsm_location_id.id, self.location.id)
 
@@ -74,6 +76,8 @@ class FSMSale(TransactionCase):
         # Link demo FS location to self.commercial_partner
         self.location.partner_id = self.commercial_partner.id
         # create a Sale Order and run onchange_partner_id
-        self.so = self.env["sale.order"].create({"partner_id": self.partner.id})
+        self.so = self.env["sale.order"].create(
+            {"partner_id": self.commercial_partner.id}
+        )
         self.so.onchange_partner_id()
         self.assertEqual(self.so.fsm_location_id.id, self.location.id)
