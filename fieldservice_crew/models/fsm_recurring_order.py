@@ -64,7 +64,7 @@ class FSMRecurringCrewMember(models.Model):
         return on_calendar
 
     def _calendar_is_active_on_date(self, date_start, date_end):
-        calendar = self.worker_id.resource_calendar_id
+        calendar = self.worker_id.calendar_id
         if not calendar:
             return True
         # todo: check global leaves in domain ?
