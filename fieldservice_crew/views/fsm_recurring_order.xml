@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>    <!-- Field Service Order Form Extended-->
+    <record id="fsm_recurring_form_view" model="ir.ui.view">
+        <field name="name">fsm.recurring.order.form</field>
+        <field name="model">fsm.recurring</field>
+        <field name="inherit_id" ref="fieldservice_recurring.fsm_recurring_form_view" />
+        <field name="arch" type="xml">
+            <field name="fsm_order_ids" position="after">
+                <!--                     widget="many2many"
+                    mode="tree,form" -->
+               
+                    <group>
+                <field
+                    name="crew_member_ids"
+                    widget="section_and_note_one2many"
+                    context="{'default_fsm_recurring_id': active_id}"
+                    mode="tree,form"
+                    >
+                    <tree>
+                        <field name="sequence" widget="handle" />
+                        <field name="fsm_frequency_rule_id" />
+                        <field name="worker_id" />
+<!--                         <field name="scheduled_date_start" />
+ -->                        <field name="scheduled_duration" />
+<!--                         <field name="scheduled_date_end" />
+ -->                    </tree>
+                </field>
+                <field name="crew_total_duration" />
+            </group>
+            </field>
+
+            <field name="person_id" position="after">
+                <field name="crew_total_duration" />
+            </field>
+        </field>
+    </record>
+
+    <record id="recurring_crew_member_ids_view_form" model="ir.ui.view">
+        <field name="model">fsm.recurring.order.member</field>
+        <field name="arch" type="xml">
+            <form string="Recurring Crew Members">
+                <group>
+                    <field name="fsm_recurring_id"  invisible="1" />
+                    <field name="fsm_frequency_rule_id" />
+                    <field name="worker_id"/>
+                    <field name="scheduled_duration" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>
