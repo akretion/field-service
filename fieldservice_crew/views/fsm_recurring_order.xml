@@ -8,20 +8,22 @@
             <field name="fsm_order_ids" position="after">
                 <!--                     widget="many2many"
                     mode="tree,form" -->
-               
+
                     <group>
                 <field
-                    name="crew_member_ids"
-                    widget="section_and_note_one2many"
-                    context="{'default_fsm_recurring_id': active_id}"
-                    mode="tree,form"
+                        name="crew_member_ids"
+                        widget="section_and_note_one2many"
+                        context="{'default_fsm_recurring_id': active_id}"
+                        mode="tree,form"
                     >
                     <tree>
                         <field name="sequence" widget="handle" />
                         <field name="fsm_frequency_rule_id" />
                         <field name="worker_id" />
 <!--                         <field name="scheduled_date_start" />
- -->                        <field name="scheduled_duration" />
+ -->                        <field
+                                name="scheduled_duration"
+                            />
 <!--                         <field name="scheduled_date_end" />
  -->                    </tree>
                 </field>
@@ -40,9 +42,9 @@
         <field name="arch" type="xml">
             <form string="Recurring Crew Members">
                 <group>
-                    <field name="fsm_recurring_id"  invisible="1" />
+                    <field name="fsm_recurring_id" invisible="1" />
                     <field name="fsm_frequency_rule_id" />
-                    <field name="worker_id"/>
+                    <field name="worker_id" />
                     <field name="scheduled_duration" />
                 </group>
             </form>

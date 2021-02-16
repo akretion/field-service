@@ -8,24 +8,26 @@ class FSMOrder(models.Model):
 
     crew_member_ids = fields.One2many(
         "fsm.order.member",
-        'fsm_order_id',
+        "fsm_order_id",
         string="Members",
     )
 
-    crew_total_duration = fields.Float(
-        compute="_calc_crew_total_duration")
+    crew_total_duration = fields.Float(compute="_calc_crew_total_duration")
 
     @api.depends("crew_member_ids.scheduled_duration")
     def _calc_crew_total_duration(self):
         for rec in self:
-            rec.crew_total_duration = sum(rec.crew_member_ids.mapped('scheduled_duration'))
+            rec.crew_total_duration = sum(
+                rec.crew_member_ids.mapped("scheduled_duration")
+            )
 
     # TODO: replace assign_to by the first of the crew
 
+
 class FSMCrewMember(models.Model):
     _name = "fsm.order.member"
-    _description = 'FSM Order Member'
-    _order = 'fsm_order_id, sequence, id'
+    _description = "FSM Order Member"
+    _order = "fsm_order_id, sequence, id"
     _sql_constraints = [
         (
             "fsm_order_member_unicity",
@@ -34,9 +36,15 @@ class FSMCrewMember(models.Model):
         ),
     ]
 
-    sequence = fields.Integer(string='Sequence', default=10)
-    fsm_order_id = fields.Many2one('fsm.order',
-        string='Order Reference', required=True, ondelete='cascade', index=True, copy=False)
+    sequence = fields.Integer(string="Sequence", default=10)
+    fsm_order_id = fields.Many2one(
+        "fsm.order",
+        string="Order Reference",
+        required=True,
+        ondelete="cascade",
+        index=True,
+        copy=False,
+    )
     scheduled_date_start = fields.Datetime(string="Scheduled Start (ETA)")
     scheduled_duration = fields.Float(
         string="Scheduled duration", help="Scheduled duration of the work in" " hours"

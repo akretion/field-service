@@ -10,17 +10,18 @@ class FSMRecurringOrder(models.Model):
 
     crew_member_ids = fields.One2many(
         "fsm.recurring.order.member",
-        'fsm_recurring_id',
+        "fsm_recurring_id",
         string="Recurring Members",
     )
 
-    crew_total_duration = fields.Float(
-        compute="_calc_crew_total_duration")
+    crew_total_duration = fields.Float(compute="_calc_crew_total_duration")
 
     @api.depends("crew_member_ids.scheduled_duration")
     def _calc_crew_total_duration(self):
         for rec in self:
-            rec.crew_total_duration = sum(rec.crew_member_ids.mapped('scheduled_duration'))
+            rec.crew_total_duration = sum(
+                rec.crew_member_ids.mapped("scheduled_duration")
+            )
 
     def _create_order(self, date=None):
         self.ensure_one()
@@ -32,28 +33,41 @@ class FSMRecurringOrder(models.Model):
     def _generate_crew(self, order):
         lines = []
         for crew_member_tmpl in self.crew_member_ids:
-            if crew_member_tmpl._is_active_on_date(order.scheduled_date_start, order.scheduled_date_end):
+            if crew_member_tmpl._is_active_on_date(
+                order.scheduled_date_start, order.scheduled_date_end
+            ):
                 lines.append(crew_member_tmpl._prepare_crew_values(order))
         return self.env["fsm.order.member"].create(lines)
 
 
 class FSMRecurringCrewMember(models.Model):
     _name = "fsm.recurring.order.member"
-    _description = 'FSM Recurring Order Member'
-    _order = 'fsm_recurring_id, sequence, id'
+    _description = "FSM Recurring Order Member"
+    _order = "fsm_recurring_id, sequence, id"
 
     _sql_constraints = [
-        ("name_uniq", "unique (fsmwork_recurring_id,fsm_frequency_rule_id,  )", "Vehicle name already exists!"),
+        (
+            "name_uniq",
+            "unique (fsmwork_recurring_id,fsm_frequency_rule_id,  )",
+            "Vehicle name already exists!",
+        ),
     ]
 
-    sequence = fields.Integer(string='Sequence', default=10)
-    fsm_recurring_id = fields.Many2one('fsm.recurring',
-        string='Recurring Order Reference', required=True, ondelete='cascade', index=True, copy=False)
+    sequence = fields.Integer(string="Sequence", default=10)
+    fsm_recurring_id = fields.Many2one(
+        "fsm.recurring",
+        string="Recurring Order Reference",
+        required=True,
+        ondelete="cascade",
+        index=True,
+        copy=False,
+    )
     scheduled_duration = fields.Float(
         string="Scheduled duration", help="Scheduled duration of the work in hours"
     )
     fsm_frequency_rule_id = fields.Many2one(
-        "fsm.frequency", "Frequency Rule",
+        "fsm.frequency",
+        "Frequency Rule",
     )
     worker_id = fields.Many2one("fsm.person", string="Worker", index=True)
 

@@ -19,8 +19,7 @@
         "views/fsm_order.xml",
         "views/fsm_recurring_order.xml",
     ],
-    "demo": [
-    ],
+    "demo": [],
     "application": True,
     "development_status": "Beta",
     "maintainers": ["hparfr"],

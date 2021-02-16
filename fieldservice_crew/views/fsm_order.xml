@@ -14,7 +14,7 @@
                     name="crew_member_ids"
                     nolabel="1"
                     context="{'default_fsm_order_id': active_id }"
-                    >
+                >
                     <tree>
                         <field name="sequence" widget="handle" />
                         <field name="worker_id" />
@@ -32,8 +32,8 @@
         <field name="model">fsm.order.member</field>
         <field name="arch" type="xml">
             <tree string="Crew Members">
-                <field name="worker_id"/>
-                <field name="fsm_order_id"/>
+                <field name="worker_id" />
+                <field name="fsm_order_id" />
             </tree>
         </field>
     </record>
@@ -43,8 +43,8 @@
         <field name="arch" type="xml">
             <form string="Crew Members">
                 <group>
-                    <field name="fsm_order_id" invisible="1"/>
-                    <field name="worker_id"/>
+                    <field name="fsm_order_id" invisible="1" />
+                    <field name="worker_id" />
                     <field name="scheduled_date_start" />
                     <field name="scheduled_duration" />
                     <field name="scheduled_date_end" />
@@ -52,14 +52,14 @@
             </form>
         </field>
     </record>
-   
+
     <record id="crew_member_ids_view_search" model="ir.ui.view">
         <field name="name">crew.member_ids.form.search</field>
         <field name="model">fsm.order.member</field>
         <field name="arch" type="xml">
             <search string="FSM Crew Members">
-                <field name="worker_id"/>
-                <field name="fsm_order_id"/>
+                <field name="worker_id" />
+                <field name="fsm_order_id" />
             </search>
         </field>
     </record>
