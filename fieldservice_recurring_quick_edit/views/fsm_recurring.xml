@@ -21,6 +21,7 @@
                     name="generate_orders"
                     string="Generate Orders"
                     type="object"
+                    attrs="{'invisible': [('state', '=', 'cancel')]}"
                 />
             </button>
             <field name="fsm_frequency_set_id" position="attributes">
