@@ -131,8 +131,19 @@ class FSMRecurringOrder(models.Model):
 
 
     def write(self, values):
+        old_abstract = {rec: rec.fsm_abstract_frequency_set_id.id for rec in self}
         result = super().write(values)
         for rec in self:
+            if (
+                rec.fsm_abstract_frequency_set_id
+                and rec.fsm_abstract_frequency_set_id.id != old_abstract[rec]
+            ):
+                # Set the abstract frequency schedule days to the concrete one
+                # only if the abstract was changed
+                rec.fsm_concrete_frequency_set_id.schedule_days = (
+                    rec.fsm_abstract_frequency_set_id.schedule_days
+                )
+
             # kind of inverse method for related fields
             # new frequencies may exist here but not linked to 
             # frequency_set
