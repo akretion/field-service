@@ -129,17 +129,7 @@ class FSMFrequency(models.Model):
         self.ensure_one()
         if not self.planned_hour:
             return 0, 0
-        tzhours, minutes = self._split_time_to_hour_min(self.planned_hour)
-        # todo set timezone on company. if user tz is not defined we can use company tz
-        user_tz = (
-            self.env.user.tz
-            and pytz.timezone(self.env.user.tz)
-            or pytz.timezone("Europe/Paris")
-        )
-        dt = datetime.datetime.now(user_tz)
-        dt = dt.replace(hour=tzhours)
-        hours = dt.astimezone(pytz.utc).hour
-        return hours, minutes
+        return self._split_time_to_hour_min(self.planned_hour)
 
     def _split_time_to_hour_min(self, time):
         if not time:
@@ -153,6 +143,8 @@ class FSMFrequency(models.Model):
         if self.planned_hour:
             # TODO move planned_hour to parent module
             hours, minutes = self._byhours()
+            tz = pytz.timezone(self._context.get("tz", self.env.user.tz or "UTC"))
+
             freq = FREQUENCIES[self.interval_type]
             # to avoid bug off creation of rrule if somme args is none
             # we add anly defined args to kwargs
@@ -176,5 +168,12 @@ class FSMFrequency(models.Model):
             if minutes or minutes == 0:
                 kwargs["byminute"] = minutes
                 kwargs["bysecond"] = 0
-            return rrule(freq, **kwargs)
+
+            # Apply user timezone on each dates to get them in UTC
+            # We do it here to avoid daylight saving time jump on the
+            # planned hour
+            return (
+                tz.localize(date).astimezone(pytz.UTC).replace(tzinfo=None)
+                for date in rrule(freq, **kwargs)
+            )
         return super(FSMFrequency, self)._get_rrule(dtstart=dtstart, until=until)
