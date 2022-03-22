@@ -97,18 +97,7 @@ class FSMRecurringOrder(models.Model):
                     # if one wants to restart from blank
                     # just delete all the concrete lines
                     rec.fsm_frequency_qedit_ids = rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids
-                    continue
 
-                if len(rec.fsm_frequency_qedit_ids) == 0:
-                    for freq in self.fsm_abstract_frequency_set_id.fsm_frequency_ids:
-                        new_freq = freq.copy({
-                            "origin": self.fsm_abstract_frequency_set_id.name,
-                            "is_abstract": False,
-                            "fsm_recurring_id": self.id,
-                            })
-                        rec.fsm_frequency_qedit_ids |= new_freq
-                        rec.fsm_concrete_frequency_ids |= new_freq
-    
     def _inverse_quickedit(self):
         for rec in self:
             if rec.fsm_frequency_qedit_ids:
@@ -127,6 +116,18 @@ class FSMRecurringOrder(models.Model):
                 "is_abstract": False,
             })
             recurring.fsm_concrete_frequency_set_id = concrete_freq_set_id
+
+            # Also copy abstract frequencies in concrete frequency set
+            for freq in recurring.fsm_abstract_frequency_set_id.fsm_frequency_ids:
+                new_freq = freq.copy(
+                    {
+                        "origin": recurring.fsm_abstract_frequency_set_id.name,
+                        "is_abstract": False,
+                        "fsm_recurring_id": recurring.id,
+                    }
+                )
+                recurring.fsm_frequency_qedit_ids |= new_freq
+                recurring.fsm_concrete_frequency_ids |= new_freq
         return recurring
 
 
