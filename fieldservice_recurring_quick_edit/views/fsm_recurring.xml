@@ -57,7 +57,7 @@
                             <field name="planned_hour" widget="float_time" />
                             <field name="use_byweekday" invisible="1" />
                             <field name="set_pos" invisible="1" />
-                            <field name="is_quick_editable" />
+                            <field name="is_quick_editable" invisible="1" />
                             <field name="origin" />
                             <field name="mo" invisible="1" />
                             <field name="tu" invisible="1" />
