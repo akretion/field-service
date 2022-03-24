@@ -1,0 +1,268 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fieldservice_recurring_quick_edit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-24 14:55+0000\n"
+"PO-Revision-Date: 2022-03-24 14:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_recurring__edit_type__advanced
+msgid "Advanced edit"
+msgstr "Édition avancée"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__fsm_concrete_frequency_set_id
+msgid "Concrete Frequency"
+msgstr "Fréquence concrète"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model,name:fieldservice_recurring_quick_edit.model_contract_line
+msgid "Contract Line"
+msgstr "Ligne de contrat"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__day_quick_edit
+msgid "Day"
+msgstr "Jour"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_contract_line__display_name
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__display_name
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency_set__display_name
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__display_name
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_sale_order_line__display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__interval_frequency__6
+msgid "Each"
+msgstr "Chaque"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__edit_type
+msgid "Edit Type"
+msgstr "Édition du type"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__interval_frequency__1
+msgid "First"
+msgstr "Premier"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__interval_frequency__4
+msgid "Forth"
+msgstr "Quatrième"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model,name:fieldservice_recurring_quick_edit.model_fsm_frequency_set
+msgid "Frequency Rule Set for Field Service Orders"
+msgstr "Groupement de règle de fréquence pour le bon d'intervention"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model,name:fieldservice_recurring_quick_edit.model_fsm_frequency
+msgid "Frequency Rule for Field Service Orders"
+msgstr "Règle de fréquence pour le bon d'intervention"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__fsm_frequency_ids
+msgid "Frequency Rules"
+msgstr "Règles de fréquence"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__fsm_frequency_set_id
+msgid "Frequency Set"
+msgstr "Groupement de fréquences"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,help:fieldservice_recurring_quick_edit.field_fsm_recurring__fsm_abstract_frequency_set_id
+msgid "Frequency of the service"
+msgstr "Fréquence du service"
+
+#. module: fieldservice_recurring_quick_edit
+#: code:addons/fieldservice_recurring_quick_edit/models/fsm_frequency.py:0
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__day_quick_edit__fr
+#, python-format
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency_set__fsm_concrete_frequency_ids
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__fsm_concrete_frequency_ids
+msgid "Fsm Concrete Frequency"
+msgstr "Fréquence concrète"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency_set__fsm_concrete_recurring_id
+msgid "Fsm Concrete Recurring"
+msgstr "Fréquence récurrente concrète"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__fsm_frequency_qedit_ids
+msgid "Fsm Frequency Qedit"
+msgstr "Fréquence Qedit"
+
+#. module: fieldservice_recurring_quick_edit
+#: model_terms:ir.ui.view,arch_db:fieldservice_recurring_quick_edit.fsm_recurring_form_view
+msgid "Generate Orders"
+msgstr "Générer les bons d'intervention"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__fsm_abstract_frequency_set_id
+msgid "Generic Frequency Set"
+msgstr "Groupement de fréquences générique"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_contract_line__id
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__id
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency_set__id
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__id
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_sale_order_line__id
+msgid "ID"
+msgstr ""
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__interval_frequency
+msgid "Interval Frequency"
+msgstr "Intervalle de fréquence"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring__is_fsm_frequency_set_abstract
+msgid "Is Fsm Frequency Set Abstract"
+msgstr "Est un groupement de fréquences générique"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__is_quick_editable
+msgid "Is Quick Editable"
+msgstr "Est éditable rapidement"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__interval_frequency__5
+msgid "Last"
+msgstr "Dernier"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_contract_line____last_update
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency____last_update
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency_set____last_update
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_recurring____last_update
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_sale_order_line____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: fieldservice_recurring_quick_edit
+#: code:addons/fieldservice_recurring_quick_edit/models/fsm_frequency.py:0
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__day_quick_edit__mo
+#, python-format
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_recurring__edit_type__none
+msgid "Only abstract"
+msgstr "Générique seulement"
+
+#. module: fieldservice_recurring_quick_edit
+#: model_terms:ir.ui.view,arch_db:fieldservice_recurring_quick_edit.fsm_recurring_form_view
+msgid "Orders"
+msgstr "Bons d'intervention"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__origin
+msgid "Origin"
+msgstr "Origine"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__planned_hour
+msgid "Planned Hours"
+msgstr "Heures planifiées"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_recurring__edit_type__quick_edit
+msgid "Quick edit"
+msgstr "Edition rapide"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model,name:fieldservice_recurring_quick_edit.model_fsm_recurring
+msgid "Recurring Field Service Order"
+msgstr "Bon d'intervention récurrent"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__fsm_recurring_id
+msgid "Recurring order"
+msgstr "Bon d'intervention récurrent"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model,name:fieldservice_recurring_quick_edit.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de commande"
+
+#. module: fieldservice_recurring_quick_edit
+#: code:addons/fieldservice_recurring_quick_edit/models/fsm_frequency.py:0
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__day_quick_edit__sa
+#, python-format
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__interval_frequency__2
+msgid "Second"
+msgstr "Second"
+
+#. module: fieldservice_recurring_quick_edit
+#: code:addons/fieldservice_recurring_quick_edit/models/fsm_frequency.py:0
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__day_quick_edit__su
+#, python-format
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,help:fieldservice_recurring_quick_edit.field_fsm_recurring__fsm_frequency_qedit_ids
+msgid "Technical field used to allow a quick edit of fsm_frequency_ids"
+msgstr ""
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__interval_frequency__3
+msgid "Third"
+msgstr "Troisième"
+
+#. module: fieldservice_recurring_quick_edit
+#: code:addons/fieldservice_recurring_quick_edit/models/fsm_frequency.py:0
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__day_quick_edit__th
+#, python-format
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: fieldservice_recurring_quick_edit
+#: code:addons/fieldservice_recurring_quick_edit/models/fsm_frequency.py:0
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__day_quick_edit__tu
+#, python-format
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: fieldservice_recurring_quick_edit
+#: code:addons/fieldservice_recurring_quick_edit/models/fsm_frequency.py:0
+#: model:ir.model.fields.selection,name:fieldservice_recurring_quick_edit.selection__fsm_frequency__day_quick_edit__we
+#, python-format
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#. module: fieldservice_recurring_quick_edit
+#: model:ir.model.fields,field_description:fieldservice_recurring_quick_edit.field_fsm_frequency__week_day
+msgid "Week Day"
+msgstr "Jour de la semaine"
+
+#. module: fieldservice_recurring_quick_edit
+#: model_terms:ir.ui.view,arch_db:fieldservice_recurring_quick_edit.fsm_recurring_form_view
+msgid "You must save first to change frequencies"
+msgstr "Vous devez d'abord enregistrer pour pouvoir changer les fréquences"

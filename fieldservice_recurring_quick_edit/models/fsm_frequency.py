@@ -42,7 +42,7 @@ class FSMFrequency(models.Model):
             ("mo", "Monday"),
             ("tu", "Tuesday"),
             ("we", "Wednesday"),
-            ("th", "Thuesday"),
+            ("th", "Thursday"),
             ("fr", "Friday"),
             ("sa", "Saturday"),
             ("su", "Sunday"),
