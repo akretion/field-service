@@ -1,0 +1,204 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fieldservice_crew
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-24 15:08+0000\n"
+"PO-Revision-Date: 2022-03-24 15:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order__person_id
+msgid "Assigned To"
+msgstr "Affecté à"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__create_uid
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__create_date
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: fieldservice_crew
+#: model_terms:ir.ui.view,arch_db:fieldservice_crew.crew_member_ids_view_form
+#: model_terms:ir.ui.view,arch_db:fieldservice_crew.crew_member_ids_view_tree
+msgid "Crew Members"
+msgstr "Membres de l'équipe"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order__crew_total_duration
+msgid "Crew Total Duration"
+msgstr "Durée totale pour l'équipe"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order__crew_worker_ids
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring__crew_worker_ids
+msgid "Crew Worker"
+msgstr "Technicien de l'équipe"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_frequency__display_name
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__display_name
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring__display_name
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: fieldservice_crew
+#: model_terms:ir.ui.view,arch_db:fieldservice_crew.crew_member_ids_view_search
+msgid "FSM Crew Members"
+msgstr "Membres de l'équipe"
+
+#. module: fieldservice_crew
+#: model:ir.model,name:fieldservice_crew.model_fsm_order_member
+msgid "FSM Order Member"
+msgstr "Membre du bon d'intervention"
+
+#. module: fieldservice_crew
+#: model:ir.model,name:fieldservice_crew.model_fsm_recurring_order_member
+msgid "FSM Recurring Order Member"
+msgstr "Membre du bon d'intervention récurrent"
+
+#. module: fieldservice_crew
+#: model:ir.model,name:fieldservice_crew.model_fsm_order
+msgid "Field Service Order"
+msgstr "Bon d’intervention"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__fsm_frequency_rule_id
+msgid "Frequency Rule"
+msgstr "Règle de fréquence"
+
+#. module: fieldservice_crew
+#: model:ir.model,name:fieldservice_crew.model_fsm_frequency
+msgid "Frequency Rule for Field Service Orders"
+msgstr "Règle de fréquence pour bons d'intervention"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_frequency__fsm_crew_member_ids
+msgid "Fsm Crew Member"
+msgstr "Membre de l'équipe"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_frequency__fsm_worker_ids
+msgid "Fsm Worker"
+msgstr "Technicien"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_frequency__id
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order__id
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__id
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring__id
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__id
+msgid "ID"
+msgstr ""
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_frequency____last_update
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order____last_update
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member____last_update
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring____last_update
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__write_uid
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__write_date
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order__crew_member_ids
+msgid "Members"
+msgstr "Membres"
+
+#. module: fieldservice_crew
+#: model:ir.model.constraint,message:fieldservice_crew.constraint_fsm_recurring_order_member_member_unique
+msgid "Only one worker per frequency"
+msgstr "Un seul technicien par fréquence"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order__display_name
+msgid "Order"
+msgstr "Bon d'intervention"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__fsm_order_id
+msgid "Order Reference"
+msgstr "Référence du bon d'intervention"
+
+#. module: fieldservice_crew
+#: model_terms:ir.ui.view,arch_db:fieldservice_crew.recurring_crew_member_ids_view_form
+msgid "Recurring Crew Members"
+msgstr "Membres de l'équipe récurrents"
+
+#. module: fieldservice_crew
+#: model:ir.model,name:fieldservice_crew.model_fsm_recurring
+msgid "Recurring Field Service Order"
+msgstr "Bon d'intervention récurrent"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring__crew_member_ids
+msgid "Recurring Members"
+msgstr "Membres récurrents"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__fsm_recurring_id
+msgid "Recurring Order Reference"
+msgstr "Référence du bon d'intervention récurrent"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__scheduled_date_end
+msgid "Scheduled End"
+msgstr "Fin prévue"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__scheduled_date_start
+msgid "Scheduled Start (ETA)"
+msgstr "Début prévu (ETA)"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__scheduled_duration
+msgid "Scheduled duration"
+msgstr "Durée prévue"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,help:fieldservice_crew.field_fsm_order_member__scheduled_duration
+msgid "Scheduled duration of the work in hours"
+msgstr "Durée prévue du travail en heures"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: fieldservice_crew
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_order_member__fsm_worker_id
+#: model:ir.model.fields,field_description:fieldservice_crew.field_fsm_recurring_order_member__fsm_worker_id
+msgid "Worker"
+msgstr "Technicien"
+
+#. module: fieldservice_crew
+#: model:ir.model.constraint,message:fieldservice_crew.constraint_fsm_order_member_fsm_order_member_unicity
+msgid "Worker already on order"
+msgstr "Technicien déjà sur le bon d'intervention"
