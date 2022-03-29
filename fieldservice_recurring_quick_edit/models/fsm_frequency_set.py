@@ -26,3 +26,17 @@ class FSMFrequencySet(models.Model):
         ],
         default="quick_edit",
     )
+
+    @api.constrains("is_abstract", "edit_type", "fsm_abstract_frequency_ids")
+    def _check_quick_edit(self):
+        for rec in self:
+            if not rec.is_abstract or rec.edit_type != "quick_edit":
+                continue
+            invalid_frequencies = rec.fsm_abstract_frequency_ids.filtered(
+                lambda f: not f.is_quick_editable
+            )
+            if invalid_frequencies:
+                raise models.ValidationError(
+                    _("The following frequencies are not weekly frequencies: %s")
+                    % (", ".join(invalid_frequencies.mapped("name")))
+                )

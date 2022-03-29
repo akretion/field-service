@@ -75,7 +75,22 @@ class FSMFrequency(models.Model):
                 if rec[field]:
                     rec.day_quick_edit = field
 
-    @api.depends("mo", "tu", "we", "th", "fr", "sa", "su")
+    @api.depends(
+        "interval_type",
+        "interval",
+        "use_byweekday",
+        "use_bymonth",
+        "use_bymonthday",
+        "use_setpos",
+        "set_pos",
+        "mo",
+        "tu",
+        "we",
+        "th",
+        "fr",
+        "sa",
+        "su",
+    )
     def _compute_is_quick_editable(self):
         for rec in self:
             if (
