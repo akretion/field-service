@@ -14,10 +14,16 @@
             </field>
 
 
-            <xpath expr="//field[@name='fsm_order_ids']/tree/field[@name='person_id']" position="after">
+            <xpath
+                expr="//field[@name='fsm_order_ids']/tree/field[@name='person_id']"
+                position="after"
+            >
                 <field name="crew_worker_ids" widget="many2many_tags" />
             </xpath>
-            <xpath expr="//field[@name='fsm_order_ids']/tree/field[@name='person_id']" position="attributes">
+            <xpath
+                expr="//field[@name='fsm_order_ids']/tree/field[@name='person_id']"
+                position="attributes"
+            >
                 <attribute name="invisible">True</attribute>
             </xpath>
 
@@ -25,12 +31,12 @@
             <field name="fsm_order_ids" position="after">
                 <group>
                     <field
-                            name="crew_member_ids"
-                            widget="section_and_note_one2many"
-                            context="{'default_fsm_recurring_id': active_id}"
-                            mode="tree,form"
-                            groups="base.group_system"
-                        >
+                        name="crew_member_ids"
+                        widget="section_and_note_one2many"
+                        context="{'default_fsm_recurring_id': active_id}"
+                        mode="tree,form"
+                        groups="base.group_system"
+                    >
                         <tree>
                             <field name="fsm_frequency_rule_id" />
                             <field name="fsm_worker_id" />
@@ -38,10 +44,16 @@
                     </field>
                 </group>
             </field>
-            <xpath expr="//field[@name='fsm_frequency_ids']/tree/field[@name='interval_type']" position="after">
+            <xpath
+                expr="//field[@name='fsm_frequency_ids']/tree/field[@name='interval_type']"
+                position="after"
+            >
                 <field name="fsm_worker_ids" widget="many2many_tags" />
             </xpath>
-            <xpath expr="//field[@name='fsm_frequency_qedit_ids']/tree/field[@name='interval_type']" position="after">
+            <xpath
+                expr="//field[@name='fsm_frequency_qedit_ids']/tree/field[@name='interval_type']"
+                position="after"
+            >
                 <field name="fsm_worker_ids" widget="many2many_tags" />
             </xpath>
         </field>

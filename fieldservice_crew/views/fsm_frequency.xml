@@ -6,8 +6,12 @@
         <field name="inherit_id" ref="fieldservice_recurring.fsm_frequency_form_view" />
         <field name="arch" type="xml">
             <field name="is_exclusive" position="after">
-                <field name="fsm_recurring_id" readonly="True"/> 
-                <field name="fsm_worker_ids" widget="many2many_tags" attrs="{'invisible': [('fsm_recurring_id', '=', False)]}" />
+                <field name="fsm_recurring_id" readonly="True" />
+                <field
+                    name="fsm_worker_ids"
+                    widget="many2many_tags"
+                    attrs="{'invisible': [('fsm_recurring_id', '=', False)]}"
+                />
             </field>
         </field>
     </record>

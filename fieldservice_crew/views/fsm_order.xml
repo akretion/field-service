@@ -35,7 +35,7 @@
                 <attribute name="invisible">True</attribute>
             </field>
             <field name="person_id" position="after">
-                <field name="crew_worker_ids" widget="many2many_tags"/>
+                <field name="crew_worker_ids" widget="many2many_tags" />
             </field>
         </field>
     </record>

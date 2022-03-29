@@ -1,8 +1,7 @@
 # Copyright (C) 2021 Akretion <raphael.reverdy@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo import fields, models
 
 
 class FSMRecurringOrder(models.Model):
@@ -38,7 +37,7 @@ class FSMRecurringOrder(models.Model):
 
     def _compute_crew_worker_ids(self):
         for rec in self:
-            rec.crew_worker_ids = rec.crew_member_ids.mapped('fsm_worker_id')
+            rec.crew_worker_ids = rec.crew_member_ids.mapped("fsm_worker_id")
 
 
 class FSMRecurringCrewMember(models.Model):
@@ -68,7 +67,7 @@ class FSMRecurringCrewMember(models.Model):
         "Frequency Rule",
         ondelete="cascade",
     )
-    
+
     fsm_worker_id = fields.Many2one("fsm.person", string="Worker", index=True)
 
     def _is_active_on_date(self, date_start, date_end):
@@ -95,7 +94,7 @@ class FSMRecurringCrewMember(models.Model):
         if not rule:
             return True
         return len(list(rule._get_rrule(dtstart=date_start, until=date_end))) > 0
-    
+
     def _prepare_crew_values(self, order):
         return {
             "fsm_order_id": order.id,
