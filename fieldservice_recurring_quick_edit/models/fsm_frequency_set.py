@@ -21,6 +21,7 @@ class FSMFrequencySet(models.Model):
 
     edit_type = fields.Selection(
         [
+            ("none", "None"),
             ("quick_edit", "Weekly"),
             ("advanced", "Advanced"),
         ],
