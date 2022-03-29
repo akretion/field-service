@@ -72,7 +72,6 @@ class FSMRecurringOrder(models.Model):
     @api.depends("edit_type", "fsm_abstract_frequency_set_id")
     def _compute_fsm_frequency_set_id(self):
         for rec in self:
-            print("dans edit_type")
             if rec.edit_type == "none":
                 rec.fsm_frequency_set_id = rec.fsm_abstract_frequency_set_id
             else:
@@ -178,6 +177,23 @@ class FSMRecurringOrder(models.Model):
         self.fsm_concrete_frequency_ids.filtered(
             lambda x: not x.is_quick_editable
         ).unlink()
+
+    def action_restore_abstract_frequencies(self):
+        if self.fsm_abstract_frequency_set_id:
+            self.edit_type = self.fsm_abstract_frequency_set_id.edit_type
+            self.fsm_concrete_frequency_ids.unlink()
+
+            # Also copy abstract frequencies in concrete frequency set
+            for freq in self.fsm_abstract_frequency_set_id.fsm_frequency_ids:
+                new_freq = freq.copy(
+                    {
+                        "origin": self.fsm_abstract_frequency_set_id.name,
+                        "is_abstract": False,
+                        "fsm_recurring_id": self.id,
+                    }
+                )
+                self.fsm_frequency_qedit_ids |= new_freq
+                self.fsm_concrete_frequency_ids |= new_freq
 
     def action_view_fms_order(self):
         # TODO: move this in parent
