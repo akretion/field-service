@@ -22,7 +22,7 @@ class FSMFrequencySet(models.Model):
     edit_type = fields.Selection(
         [
             ("none", "None"),
-            ("quick_edit", "Weekly"),
+            ("quick_edit", "Quick Edit"),
             ("advanced", "Advanced"),
         ],
         default="quick_edit",
@@ -38,6 +38,6 @@ class FSMFrequencySet(models.Model):
             )
             if invalid_frequencies:
                 raise models.ValidationError(
-                    _("The following frequencies are not weekly frequencies: %s")
+                    _("The following frequencies are not monthly frequencies: %s")
                     % (", ".join(invalid_frequencies.mapped("name")))
                 )

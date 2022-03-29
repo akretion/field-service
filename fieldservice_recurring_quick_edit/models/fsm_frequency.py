@@ -54,7 +54,6 @@ class FSMFrequency(models.Model):
         default="mo",
     )
     week_day = fields.Char(compute="_calc_week_day")
-    #    interval_type = fields.Selection(default="weekly")
     origin = fields.Char()
 
     def name_get(self):
@@ -94,7 +93,7 @@ class FSMFrequency(models.Model):
     def _compute_is_quick_editable(self):
         for rec in self:
             if (
-                rec.interval_type != "weekly"
+                rec.interval_type != "monthly"
                 or rec.interval != 1
                 or not rec.use_byweekday
                 or rec.use_bymonth

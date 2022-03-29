@@ -12,7 +12,7 @@
             <button name="action_cancel" position="before">
                 <button id="generate_orders" name="generate_orders" string="Generate Orders" type="object" attrs="{'invisible': [('state', '=', 'cancel')]}" />
                 <button id="convert_to_advanced" name="action_convert_to_advanced" string="Convert to advanced" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('edit_type', '=', 'advanced')]}" />
-                <button id="convert_to_weekly" name="action_convert_to_weekly" string="Convert to weekly" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('edit_type', '!=', 'advanced')]}" confirm="Advanced frequencies will be lost, continue?" />
+                <button id="convert_to_monthly" name="action_convert_to_monthly" string="Convert to monthly" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('edit_type', '!=', 'advanced')]}" confirm="Advanced frequencies will be lost, continue?" />
                 <button id="restore_abstract_frequencies" name="action_restore_abstract_frequencies" string="Restore abstract frequencies" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('fsm_abstract_frequency_set_id', '=', False)]}" confirm="Configured frequencies will be lost, continue?" />
             </button>
             <field name="fsm_frequency_set_id" position="attributes">
@@ -28,7 +28,7 @@
                     <field name="edit_type" readonly="1" />
 
                     <field name="fsm_quick_edit_concrete_frequency_ids" attrs="{'invisible': [('edit_type', '!=', 'quick_edit')]}" widget="section_and_note_one2many" mode="tree,form" context="{'default_fsm_recurring_id': active_id,
-                                      'default_interval_type': 'weekly',
+                                      'default_interval_type': 'monthly',
                                       'default_interval_frequency': '6',} " create="false">
                         <tree editable="bottom">
                             <field name="interval_frequency" />
@@ -69,23 +69,7 @@
                             </group>
                         </form>
                     </field>
-                    <field name="fsm_advanced_concrete_frequency_ids" attrs="{'invisible': [('edit_type', '!=', 'advanced')]}" widget="section_and_note_one2many" mode="tree" context="{'default_fsm_recurring_id': active_id,
-                                      'default_interval_type': 'weekly',
-                                      'default_interval_frequency': '6',
-                                      'default_is_abstract': '1',
-                                      'form_view_ref': 'fieldservice_recurring.fsm_frequency_form_view',}">
-                        <tree>
-                            <field name="name" />
-                            <field name="week_day" />
-                            <field name="interval_frequency" />
-                            <field name="planned_hour" widget="float_time" />
-                            <field name="interval_type" />
-                            <field name="use_byweekday" invisible="1" />
-                            <field name="use_bymonth" invisible="1" />
-                        </tree>
-                    </field>
-                    <field name="fsm_frequency_ids" attrs="{'invisible': [('edit_type', '!=', 'none')],
-                                'readonly': [('edit_type', '==', 'none')]}" widget="section_and_note_one2many" mode="tree" context="{'default_fsm_recurring_id': active_id,
+                    <field name="fsm_advanced_concrete_frequency_ids" attrs="{'invisible': [('edit_type', '=', 'quick_edit')], 'readonly': [('edit_type', '=', 'none')]}" widget="section_and_note_one2many" mode="tree" context="{'default_fsm_recurring_id': active_id,
                                       'default_interval_type': 'weekly',
                                       'default_interval_frequency': '6',
                                       'default_is_abstract': '1',

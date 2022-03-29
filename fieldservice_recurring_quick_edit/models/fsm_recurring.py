@@ -124,7 +124,7 @@ class FSMRecurringOrder(models.Model):
     def action_convert_to_advanced(self):
         self.fsm_concrete_frequency_set_id.edit_type = "advanced"
 
-    def action_convert_to_weekly(self):
+    def action_convert_to_monthly(self):
         self.fsm_concrete_frequency_set_id.edit_type = "quick_edit"
         self.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids.filtered(
             lambda x: not x.is_quick_editable
