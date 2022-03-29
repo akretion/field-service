@@ -100,7 +100,7 @@ class FSMRecurringOrder(models.Model):
                         "fsm_recurring_id": recurring.id,
                     }
                 )
-                self.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids |= (
+                recurring.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids |= (
                     new_freq
                 )
         return recurring
