@@ -18,3 +18,11 @@ class FSMFrequencySet(models.Model):
     fsm_concrete_frequency_ids = fields.Many2many(
         domain="[('is_abstract', '=', False), ('fsm_recurring_id','=', False)]",
     )
+
+    edit_type = fields.Selection(
+        [
+            ("quick_edit", "Weekly"),
+            ("advanced", "Advanced"),
+        ],
+        default="quick_edit",
+    )

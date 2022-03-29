@@ -28,7 +28,10 @@ class FSMFrequency(models.Model):
     fsm_recurring_id = fields.Many2one(
         # only if set.is_abstract is false
         # it's quite hard to have a good sql constraint
-        "fsm.recurring", "Recurring order", ondelete="cascade", readonly=True
+        "fsm.recurring",
+        "Recurring order",
+        ondelete="cascade",
+        readonly=True,
     )
     # simple edit helper with planned_hour precision
     interval_frequency = fields.Selection(INTERVAl_FREQUENCIES, default="6")
@@ -75,6 +78,17 @@ class FSMFrequency(models.Model):
     @api.depends("mo", "tu", "we", "th", "fr", "sa", "su")
     def _compute_is_quick_editable(self):
         for rec in self:
+            if (
+                rec.interval_type != "weekly"
+                or rec.interval != 1
+                or not rec.use_byweekday
+                or rec.use_bymonth
+                or rec.use_bymonthday
+                or (rec.use_setpos and rec.set_pos != 0)
+            ):
+                rec.is_quick_editable = False
+                continue
+
             nb_dayselected = 0
             weekdays = ["mo", "tu", "we", "th", "fr", "sa", "su"]
             for field in weekdays:
@@ -109,7 +123,6 @@ class FSMFrequency(models.Model):
     def _calc_week_day(self):
         for rec in self:
             rec.week_day = ",".join(["%s" % d for d in (rec._byweekday() or [])])
-
 
     @api.onchange("interval_frequency")
     def _onchange_interval_frequency(self):

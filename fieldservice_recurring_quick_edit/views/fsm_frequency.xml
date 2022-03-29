@@ -7,6 +7,9 @@
             ref="fieldservice_sale_frequency.fsm_frequency_set_form_view_inherit_sale"
         />
         <field name="arch" type="xml">
+            <field name="is_abstract" position="after">
+                <field name="edit_type" attrs="{ 'invisible': [('is_abstract', '=', False)] }" />
+            </field>
             <field name="buffer_late" position="after">
                 <field name="fsm_concrete_recurring_id" attrs="{'invisible': [('is_abstract', '=', True)]}"/>
             </field> 

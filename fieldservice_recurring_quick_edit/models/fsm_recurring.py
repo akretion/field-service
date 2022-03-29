@@ -12,7 +12,6 @@ _logger = logging.getLogger(__name__)
 class FSMRecurringOrder(models.Model):
     _inherit = "fsm.recurring"
 
-
     is_fsm_frequency_set_abstract = fields.Boolean()
     fsm_abstract_frequency_set_id = fields.Many2one(
         "fsm.frequency.set",
@@ -49,54 +48,58 @@ class FSMRecurringOrder(models.Model):
     )
 
     fsm_frequency_set_id = fields.Many2one(
-        compute="_compute_fsm_frequency_set_id",
-        readonly=True,
-        store=True)
-
+        compute="_compute_fsm_frequency_set_id", readonly=True, store=True
+    )
 
     edit_type = fields.Selection(
-        [("quick_edit", "Quick edit"),
-        ("advanced", "Advanced edit"),
-        ("none", "Only abstract")],
+        [("quick_edit", "Weekly"), ("advanced", "Advanced"), ("none", "")],
         default="none",
     )
 
     @api.depends("fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids")
     def _compute_fsm_concrete_frequency_ids(self):
         for rec in self:
-            rec.fsm_concrete_frequency_ids = rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids
+            rec.fsm_concrete_frequency_ids = (
+                rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids
+            )
 
     def _inverse_fsm_concrete_frequency_ids(self):
         for rec in self:
-            rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids = rec.fsm_concrete_frequency_ids
+            rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids = (
+                rec.fsm_concrete_frequency_ids
+            )
 
     @api.depends("edit_type", "fsm_abstract_frequency_set_id")
     def _compute_fsm_frequency_set_id(self):
         for rec in self:
-            print('dans edit_type')
+            print("dans edit_type")
             if rec.edit_type == "none":
                 rec.fsm_frequency_set_id = rec.fsm_abstract_frequency_set_id
             else:
-                #TODO copy frequency_set params like buffer, days ahead ?
+                # TODO copy frequency_set params like buffer, days ahead ?
                 rec.fsm_frequency_set_id = rec.fsm_concrete_frequency_set_id
-    
+
     @api.depends("edit_type", "fsm_abstract_frequency_set_id")
     def _compute_quickedit(self):
         for rec in self:
             if not rec.fsm_concrete_frequency_set_id:
                 # save first
-                print('no concrete')
                 continue
-            if rec.edit_type == "advanced":
-                print(" on copie dans qedit ?")
 
             if rec.edit_type == "quick_edit" and rec.fsm_abstract_frequency_set_id:
-                if not len(rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids) == 0:
+                if (
+                    not len(
+                        rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids
+                    )
+                    == 0
+                ):
                     # we do not know if old value was advanced or none
                     # always copy concrete freq
                     # if one wants to restart from blank
                     # just delete all the concrete lines
-                    rec.fsm_frequency_qedit_ids = rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids
+                    rec.fsm_frequency_qedit_ids = (
+                        rec.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids
+                    )
 
     def _inverse_quickedit(self):
         for rec in self:
@@ -111,11 +114,15 @@ class FSMRecurringOrder(models.Model):
         if not recurring.fsm_concrete_frequency_set_id:
             # always create a fsm_concrete for each recurring.
             # it's a bit overkill but spare us lots of issues.
-            concrete_freq_set_id = self.env['fsm.frequency.set'].create(
-                {"name": recurring.name,
-                "is_abstract": False,
-            })
+            concrete_freq_set_id = self.env["fsm.frequency.set"].create(
+                {
+                    "name": recurring.name,
+                    "is_abstract": False,
+                }
+            )
             recurring.fsm_concrete_frequency_set_id = concrete_freq_set_id
+            if recurring.fsm_abstract_frequency_set_id:
+                recurring.edit_type = recurring.fsm_abstract_frequency_set_id.edit_type
 
             # Also copy abstract frequencies in concrete frequency set
             for freq in recurring.fsm_abstract_frequency_set_id.fsm_frequency_ids:
@@ -130,7 +137,6 @@ class FSMRecurringOrder(models.Model):
                 recurring.fsm_concrete_frequency_ids |= new_freq
         return recurring
 
-
     def write(self, values):
         old_abstract = {rec: rec.fsm_abstract_frequency_set_id.id for rec in self}
         result = super().write(values)
@@ -144,22 +150,34 @@ class FSMRecurringOrder(models.Model):
                 rec.fsm_concrete_frequency_set_id.schedule_days = (
                     rec.fsm_abstract_frequency_set_id.schedule_days
                 )
+                # Should we reset frequencies?
 
             # kind of inverse method for related fields
-            # new frequencies may exist here but not linked to 
+            # new frequencies may exist here but not linked to
             # frequency_set
             # and unlinked frequency can be there too
             freq_set = rec.fsm_concrete_frequency_set_id
-            if rec.edit_type == 'quick_edit':
+            if rec.edit_type == "quick_edit":
                 frequencies = rec.fsm_frequency_qedit_ids
-            elif rec.edit_type == 'advanced':
-                frequencies = rec.fsm_frequency_ids.filtered(lambda x: not x.is_abstract)
+            elif rec.edit_type == "advanced":
+                frequencies = rec.fsm_frequency_ids.filtered(
+                    lambda x: not x.is_abstract
+                )
                 to_rm = rec.fsm_concrete_frequency_ids - frequencies
                 to_rm.unlink()
             else:
                 continue
             freq_set.fsm_concrete_frequency_ids = [(6, 0, frequencies.ids)]
         return result
+
+    def action_convert_to_advanced(self):
+        self.edit_type = "advanced"
+
+    def action_convert_to_weekly(self):
+        self.edit_type = "quick_edit"
+        self.fsm_concrete_frequency_ids.filtered(
+            lambda x: not x.is_quick_editable
+        ).unlink()
 
     def action_view_fms_order(self):
         # TODO: move this in parent
