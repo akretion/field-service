@@ -76,7 +76,6 @@ class FSMFrequency(models.Model):
 
     @api.depends(
         "interval_type",
-        "interval",
         "use_byweekday",
         "use_bymonth",
         "use_bymonthday",
@@ -93,16 +92,16 @@ class FSMFrequency(models.Model):
     def _compute_is_quick_editable(self):
         for rec in self:
             if (
+                # exclusions
                 rec.interval_type != "monthly"
-                or rec.interval != 1
                 or not rec.use_byweekday
                 or rec.use_bymonth
                 or rec.use_bymonthday
-                or (rec.use_setpos and rec.set_pos != 0)
             ):
                 rec.is_quick_editable = False
                 continue
 
+            # ensure only one day selected
             nb_dayselected = 0
             weekdays = ["mo", "tu", "we", "th", "fr", "sa", "su"]
             for field in weekdays:
