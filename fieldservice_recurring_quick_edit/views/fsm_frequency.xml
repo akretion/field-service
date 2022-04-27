@@ -8,6 +8,7 @@
         />
         <field name="arch" type="xml">
             <field name="is_abstract" position="after">
+                <!-- edit type for concrete should be toggled by action_convert_to_advanced() -->
                 <field name="edit_type" attrs="{ 'invisible': [('is_abstract', '=', False)] }" />
             </field>
             <field name="buffer_late" position="after">

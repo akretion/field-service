@@ -34,8 +34,8 @@ class FSMFrequency(models.Model):
         readonly=True,
     )
     # simple edit helper with planned_hour precision
-    interval_frequency = fields.Selection(INTERVAl_FREQUENCIES, default="6")
-    planned_hour = fields.Float("Planned Hours")
+    interval_frequency = fields.Selection(INTERVAl_FREQUENCIES, default="6", required=True)
+    planned_hour = fields.Float("Planned Hours", help="Start at time")
     is_quick_editable = fields.Boolean(
         compute="_compute_is_quick_editable", default=False, store=True
     )

@@ -10,13 +10,14 @@
                 </button>
             </xpath>
             <button name="action_cancel" position="before">
+                <!-- TODO: convert to action from the menu instead -->
                 <button id="generate_orders" name="generate_orders" string="Generate Orders" type="object" attrs="{'invisible': [('state', '=', 'cancel')]}" />
                 <button id="convert_to_advanced" name="action_convert_to_advanced" string="Convert to advanced" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('edit_type', '=', 'advanced')]}" />
                 <button id="convert_to_monthly" name="action_convert_to_monthly" string="Convert to monthly" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('edit_type', '!=', 'advanced')]}" confirm="Advanced frequencies will be lost, continue?" />
                 <button id="restore_abstract_frequencies" name="action_restore_abstract_frequencies" string="Restore abstract frequencies" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('fsm_abstract_frequency_set_id', '=', False)]}" confirm="Configured frequencies will be lost, continue?" />
             </button>
             <field name="fsm_frequency_set_id" position="attributes">
-                <attribute name="attrs">{'readonly': True}</attribute>
+                <attribute name="attrs">{'readonly': True, 'invisible': True}</attribute>
             </field>
             <xpath expr="//field[@name='fsm_order_template_id']/../.." position="after">
                 <group>
