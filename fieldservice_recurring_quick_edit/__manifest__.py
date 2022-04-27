@@ -9,7 +9,9 @@
     "category": "Field Service",
     "author": "Akretion, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/field-service",
-    "depends": ["fieldservice_recurring", "fieldservice_sale_frequency"],
+    "depends": [
+        "contract",
+        "fieldservice_recurring", "fieldservice_sale_frequency"],
     "data": ["views/fsm_frequency.xml", "views/fsm_recurring.xml",],
     "license": "AGPL-3",
     "installable": True,
