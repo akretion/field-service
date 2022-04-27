@@ -87,9 +87,14 @@ class FSMRecurringOrder(models.Model):
             )
             recurring.fsm_concrete_frequency_set_id = concrete_freq_set_id
             if recurring.fsm_abstract_frequency_set_id:
+                # copy values from abstract
                 recurring.fsm_concrete_frequency_set_id.edit_type = (
                     recurring.fsm_abstract_frequency_set_id.edit_type
                 )
+                recurring.fsm_concrete_frequency_set_id.schedule_days = (
+                    recurring.fsm_abstract_frequency_set_id.schedule_days
+                )
+                #TODO: factorize with write()
 
             # Also copy abstract frequencies in concrete frequency set
             for freq in recurring.fsm_abstract_frequency_set_id.fsm_frequency_ids:
@@ -106,15 +111,19 @@ class FSMRecurringOrder(models.Model):
         return recurring
 
     def write(self, values):
+        # propagate schedule_days changes
         old_abstract = {rec: rec.fsm_abstract_frequency_set_id.id for rec in self}
+        new_concrete = {rec: rec.fsm_concrete_frequency_set_id.id for rec in self}
         result = super().write(values)
         for rec in self:
             if (
                 rec.fsm_abstract_frequency_set_id
-                and rec.fsm_abstract_frequency_set_id.id != old_abstract[rec]
+                and (rec.fsm_abstract_frequency_set_id.id != old_abstract[rec]
+                or rec.fsm_concrete_frequency_set_id.id != new_concrete[rec])
             ):
                 # Set the abstract frequency schedule days to the concrete one
                 # only if the abstract was changed
+                # or if the concrete is been created
                 rec.fsm_concrete_frequency_set_id.schedule_days = (
                     rec.fsm_abstract_frequency_set_id.schedule_days
                 )
