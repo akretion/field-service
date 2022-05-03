@@ -9,20 +9,6 @@
                     <field name="fsm_order_count" widget="statinfo" string="Orders" />
                 </button>
             </xpath>
-            <button name="action_start" position="before">
-                <!-- Todo: move this somewhere else
-                like in the action menu instead -->
-                <button
-                    id="generate_orders"
-                    name="generate_orders"
-                    string="Generate Orders"
-                    type="object"
-                    attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"
-                />
-                <button id="convert_to_advanced" name="action_convert_to_advanced" string="Convert to advanced" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('edit_type', '=', 'advanced')]}" />
-                <button id="convert_to_monthly" name="action_convert_to_monthly" string="Convert to monthly" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('edit_type', '!=', 'advanced')]}" confirm="Advanced frequencies will be lost, continue?" />
-                <button id="restore_abstract_frequencies" name="action_restore_abstract_frequencies" string="Restore abstract frequencies" type="object" attrs="{'invisible': ['|', ('id', '=', False), '|', ('state', '=', 'cancel'), ('fsm_abstract_frequency_set_id', '=', False)]}" confirm="Configured frequencies will be lost, continue?" />
-            </button>
             <field name="fsm_frequency_set_id" position="attributes">
                 <attribute name="attrs">{'readonly': True, 'invisible': True}</attribute>
             </field>
@@ -95,5 +81,29 @@
                 </group>
             </xpath>
         </field>
+    </record>
+    <record id="model_fsm_recurring_action_convert_to_advanced" model="ir.actions.server">
+        <field name="name">Convert FSM Recurring to advanced</field>
+        <field name="model_id" ref="fieldservice_recurring.model_fsm_recurring"/>
+        <field name="binding_model_id" ref="fieldservice_recurring.model_fsm_recurring"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_convert_to_advanced()</field>
+    </record>
+    <record id="model_fsm_recurring_action_convert_to_monthly" model="ir.actions.server">
+        <field name="name">Convert FSM Recurring to monthly</field>
+        <field name="model_id" ref="fieldservice_recurring.model_fsm_recurring"/>
+        <field name="binding_model_id" ref="fieldservice_recurring.model_fsm_recurring"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_convert_to_monthly()</field>
+    </record>
+    <record id="model_fsm_recurring_action_restore_abstract_frequencies" model="ir.actions.server">
+        <field name="name">Restore FSM Recurring abstract frequencies</field>
+        <field name="model_id" ref="fieldservice_recurring.model_fsm_recurring"/>
+        <field name="binding_model_id" ref="fieldservice_recurring.model_fsm_recurring"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_restore_abstract_frequencies()</field>
     </record>
 </odoo>

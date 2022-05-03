@@ -130,14 +130,68 @@ class FSMRecurringOrder(models.Model):
 
         return result
 
+    @api.model
+    def fields_view_get(
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
+    ):
+        result = super().fields_view_get(view_id, view_type, toolbar, submenu)
+        if view_type == "form":
+            convert_to_monthly = self.env.ref(
+                "fieldservice_recurring_quick_edit.model_fsm_recurring_action_convert_to_monthly"
+            )
+            convert_to_advanced = self.env.ref(
+                "fieldservice_recurring_quick_edit.model_fsm_recurring_action_convert_to_advanced"
+            )
+            restore_abstract_frequencies = self.env.ref(
+                "fieldservice_recurring_quick_edit.model_fsm_recurring_action_restore_abstract_frequencies"
+            )
+            actions = {
+                convert_to_monthly.id,
+                convert_to_advanced.id,
+                restore_abstract_frequencies.id,
+            }
+            actions_to_remove = set()
+
+            fsm_recurring_id = self._context.get("params", {}).get("id")
+            if fsm_recurring_id:  # Do not remove if there's no context
+                fsm_recurring = self.env["fsm.recurring"].browse(fsm_recurring_id)
+                if fsm_recurring.state in ["close"]:
+                    actions_to_remove |= actions
+                elif (
+                    fsm_recurring.fsm_concrete_frequency_set_id.edit_type
+                    == "quick_edit"
+                ):
+                    actions_to_remove |= {convert_to_monthly.id}
+                elif (
+                    fsm_recurring.fsm_concrete_frequency_set_id.edit_type == "advanced"
+                ):
+                    actions_to_remove |= {convert_to_advanced.id}
+                if not fsm_recurring.fsm_abstract_frequency_set_id:
+                    actions_to_remove |= {restore_abstract_frequencies.id}
+
+            for action_to_remove in actions_to_remove:
+                for action in list(result["toolbar"]["action"]):
+                    if action["id"] == action_to_remove:
+                        result["toolbar"]["action"].remove(action)
+                        break
+        return result
+
     def action_convert_to_advanced(self):
         self.fsm_concrete_frequency_set_id.edit_type = "advanced"
+        return {
+            "type": "ir.actions.client",
+            "tag": "reload",
+        }
 
     def action_convert_to_monthly(self):
         self.fsm_concrete_frequency_set_id.edit_type = "quick_edit"
         self.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids.filtered(
             lambda x: not x.is_quick_editable
         ).unlink()
+        return {
+            "type": "ir.actions.client",
+            "tag": "reload",
+        }
 
     def action_restore_abstract_frequencies(self):
         if self.fsm_abstract_frequency_set_id:
@@ -158,6 +212,10 @@ class FSMRecurringOrder(models.Model):
                 self.fsm_concrete_frequency_set_id.fsm_concrete_frequency_ids |= (
                     new_freq
                 )
+            return {
+                "type": "ir.actions.client",
+                "tag": "reload",
+            }
 
     def action_view_fms_order(self):
         # TODO: move this in parent
