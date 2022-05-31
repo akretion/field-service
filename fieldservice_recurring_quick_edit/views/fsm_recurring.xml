@@ -48,6 +48,7 @@
                             <field name="set_pos" invisible="1" />
                             <field name="is_quick_editable" invisible="1" />
                             <field name="origin" invisible="1" />
+                            <field name="fsm_recurring_id" invisible="1" readonly="0" />
                             <field name="mo" invisible="1" />
                             <field name="tu" invisible="1" />
                             <field name="we" invisible="1" />
@@ -69,6 +70,7 @@
                                     <field name="fr" invisible="1" />
                                     <field name="sa" invisible="1" />
                                     <field name="su" invisible="1" />
+                                    <field name="fsm_recurring_id" invisible="1" readonly="0" />
                                     <field name="planned_hour" widget="float_time" />
                                     <field name="interval_type" />
                                     <field name="use_byweekday" invisible="1" />
@@ -90,6 +92,7 @@
                             <field name="interval_type" />
                             <field name="use_byweekday" invisible="1" />
                             <field name="use_bymonth" invisible="1" />
+                            <field name="fsm_recurring_id" invisible="1" readonly="0" />
                         </tree>
                     </field>
                 </group>
