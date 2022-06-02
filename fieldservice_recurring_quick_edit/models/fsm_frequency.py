@@ -169,7 +169,11 @@ class FSMFrequency(models.Model):
         if self.planned_hour is not False:
             # TODO move planned_hour to parent module
             hours, minutes = self._byhours()
-            tz = pytz.timezone(self._context.get("tz", self.env.user.tz or "UTC"))
+            # localize dtstart and until to user timezone
+            tz = (
+                pytz.timezone(self._context.get("tz", None) or self.env.user.tz)
+                or pytz.UTC
+            )
 
             freq = FREQUENCIES[self.interval_type]
             # to avoid bug off creation of rrule if somme args is none
@@ -178,9 +182,15 @@ class FSMFrequency(models.Model):
             if self.interval:
                 kwargs["interval"] = self.interval
             if dtstart:
-                kwargs["dtstart"] = dtstart
+                # Use naive datetime in current tz
+                kwargs["dtstart"] = pytz.UTC.localize(dtstart).astimezone(tz)
             if until:
-                kwargs["until"] = until
+                # We force until in the starting timezone to avoid incoherent results
+                kwargs["until"] = tz.normalize(
+                    pytz.UTC.localize(until)
+                    .astimezone(tz)
+                    .replace(tzinfo=kwargs["dtstart"].tzinfo)
+                )
             if self._byweekday():
                 kwargs["byweekday"] = self._byweekday()
             if self._bymonth():
@@ -195,11 +205,22 @@ class FSMFrequency(models.Model):
                 kwargs["byminute"] = minutes
                 kwargs["bysecond"] = 0
 
-            # Apply user timezone on each dates to get them in UTC
-            # We do it here to avoid daylight saving time jump on the
-            # planned hour
             return (
-                tz.localize(date).astimezone(pytz.UTC).replace(tzinfo=None)
+                # Replace original timezone with current date timezone
+                # without changing the time and force it back to UTC,
+                # this will keep the same final time even in case of
+                # daylight saving time change
+                #
+                # for instance recurring weekly
+                # from 2022-03-21 15:00:00+01:00 to 2022-04-11 15:30:00+02:00
+                # will give:
+                #
+                # utc naive -> datetime timezone aware
+                # 2022-03-21 14:00:00 -> 2022-03-21 15:00:00+01:00
+                # 2022-03-28 13:00:00 -> 2022-03-28 15:00:00+02:00
+                date.replace(tzinfo=tz.normalize(date).tzinfo)
+                .astimezone(pytz.UTC)
+                .replace(tzinfo=None)
                 for date in rrule(freq, **kwargs)
             )
         return super(FSMFrequency, self)._get_rrule(dtstart=dtstart, until=until)
