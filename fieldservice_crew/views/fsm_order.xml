@@ -36,6 +36,7 @@
                     name="crew_worker_ids"
                     write_model="fsm.worker.calendar.filter"
                     write_field="fsm_worker_id"
+                    avatar_field="image_small"
                 />
             </field>
         </field>

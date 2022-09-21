@@ -1,0 +1,7 @@
+<template>
+  <t t-name="fieldservice_crew.CalendarView.sidebar.filter" t-inherit="web.CalendarView.sidebar.filter" t-inherit-mode="extension" owl="1">
+    <xpath expr="//input[@name='selection']" position="attributes">
+      <attribute name="t-att-disabled">filter.value == 'all' ? true : undefined</attribute>
+    </xpath>
+  </t>
+</template>
