@@ -20,8 +20,10 @@ class FSMRecurringOrder(models.Model):
     )
     crew_worker_ids = fields.Many2many(
         "hr.employee",
+        relation="fsm_recurring_order_roster",
         compute="_compute_crew_worker_ids",
-        readonly=True,
+        inverse="_inverse_crew_worker_ids",
+        store=True,
     )
 
     def _prepare_order_values(self, date=None):
@@ -50,6 +52,22 @@ class FSMRecurringOrder(models.Model):
     def _compute_crew_worker_ids(self):
         for rec in self:
             rec.crew_worker_ids = rec.crew_member_ids.mapped("fsm_worker_id")
+
+    def _inverse_crew_worker_ids(self):
+        for rec in self:
+            to_add = rec.crew_worker_ids - rec.crew_member_ids.mapped("fsm_worker_id")
+            to_rm = rec.crew_member_ids.mapped("fsm_worker_id") - rec.crew_worker_ids
+
+            for worker in to_add:
+                self.env["fsm.recurring.order.member"].create(
+                    {
+                        "fsm_recurring_id": rec.id,
+                        "fsm_worker_id": worker.id,
+                    }
+                )
+            rec.crew_member_ids.filtered(
+                lambda w: w.fsm_worker_id.id in to_rm.ids
+            ).unlink()
 
     def _compute_active_crew_member_ids(self):
         for rec in self:

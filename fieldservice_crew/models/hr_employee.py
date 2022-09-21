@@ -12,6 +12,11 @@ class HrEmployee(models.Model):
         relation="fsm_order_roster",
         readonly=True
     )
+    fsm_recurring_order_ids = fields.Many2many(
+        "fsm.recurring",
+        relation="fsm_recurring_order_roster",
+        readonly=True
+    )
 
     def action_view_fsm_order(self):
         self.ensure_one()
