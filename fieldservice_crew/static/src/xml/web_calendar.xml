@@ -3,5 +3,8 @@
     <xpath expr="//input[@name='selection']" position="attributes">
       <attribute name="t-att-disabled">filter.value == 'all' ? true : undefined</attribute>
     </xpath>
+    <xpath expr="//div[@t-att-data-value]" position="attributes">
+      <attribute name="t-attf-class" add="#{filter.value == 'all' ? 'text-muted': ''}" separator=" " />
+    </xpath>
   </t>
 </template>
