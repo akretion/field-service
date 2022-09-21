@@ -49,6 +49,16 @@
         </field>
     </record>
 
+    <record id="fsm_recurring_tree_view" model="ir.ui.view">
+        <field name="model">fsm.recurring</field>
+        <field name="inherit_id" ref="fieldservice_recurring.fsm_recurring_tree_view" />
+        <field name="arch" type="xml">
+            <field name="person_id" position="after">
+                <field name="crew_worker_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
     <record id="recurring_crew_member_ids_view_form" model="ir.ui.view">
         <field name="model">fsm.recurring.order.member</field>
         <field name="arch" type="xml">
