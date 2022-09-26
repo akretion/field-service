@@ -10,9 +10,6 @@ class HrEmployee(models.Model):
     fsm_order_ids = fields.Many2many(
         "fsm.order", relation="fsm_order_roster", readonly=True
     )
-    fsm_recurring_order_ids = fields.Many2many(
-        "fsm.recurring", relation="fsm_recurring_order_roster", readonly=True
-    )
     fsm_order_count = fields.Integer(
         compute="_compute_fsm_order_count", string="FSM Orders"
     )
@@ -26,7 +23,11 @@ class HrEmployee(models.Model):
 
     def _compute_fsm_recurring_count(self):
         for employee in self:
-            employee.fsm_recurring_count = len(employee.fsm_recurring_order_ids)
+            employee.fsm_recurring_count = self.env["fsm.recurring"].search_count(
+                [
+                    ("crew_member_ids.fsm_worker_id", "=", employee.id),
+                ]
+            )
 
     def action_view_fsm_order(self):
         self.ensure_one()
@@ -54,7 +55,11 @@ class HrEmployee(models.Model):
 
     def action_view_fsm_recurring(self):
         self.ensure_one()
-        fsm_recurrings = self.mapped("fsm_recurring_order_ids")
+        fsm_recurrings = self.env["fsm.recurring"].search(
+            [
+                ("crew_member_ids.fsm_worker_id", "=", self.id),
+            ]
+        )
         action = self.env.ref("fieldservice_recurring.action_fsm_recurring").read()[0]
         if len(fsm_recurrings) > 1:
             action["domain"] = [("id", "in", fsm_recurrings.ids)]
