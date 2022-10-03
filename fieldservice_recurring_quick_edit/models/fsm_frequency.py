@@ -164,15 +164,14 @@ class FSMFrequency(models.Model):
         hours, minutes = divmod(duration_minute, 60)
         return int(hours), int(minutes)
 
-    def _get_rrule(self, dtstart=None, until=None):
+    def _get_rrule(self, dtstart=None, until=None, tz=None):
         self.ensure_one()
         if self.planned_hour is not False:
             # TODO move planned_hour to parent module
             hours, minutes = self._byhours()
             # localize dtstart and until to user timezone
-            tz = (
-                pytz.timezone(self._context.get("tz", None) or self.env.user.tz)
-                or pytz.UTC
+            tz = pytz.timezone(
+                tz or self._context.get("tz", None) or self.env.user.tz or "UTC"
             )
 
             freq = FREQUENCIES[self.interval_type]
@@ -223,4 +222,4 @@ class FSMFrequency(models.Model):
                 .replace(tzinfo=None)
                 for date in rrule(freq, **kwargs)
             )
-        return super(FSMFrequency, self)._get_rrule(dtstart=dtstart, until=until)
+        return super(FSMFrequency, self)._get_rrule(dtstart=dtstart, until=until, tz=tz)
