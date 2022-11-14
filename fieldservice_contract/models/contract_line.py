@@ -273,7 +273,14 @@ class ContractLine(models.Model):
         note = self.name
         if template.description:
             note += "\n " + template.description
-        frequency_set = self.fsm_frequency_set_id or template.fsm_frequency_set_id
+        abstract_frequency_set = self.fsm_frequency_set_id or template.fsm_frequency_set_id
+        concrete_frequency_set = False
+
+        if self.fsm_recurring_id:
+            # If we have a recurring order, use the same frequency sets in the new recurring order
+            abstract_frequency_set = abstract_frequency_set or self.fsm_recurring_id.fsm_abstract_frequency_set_id
+            concrete_frequency_set = self.fsm_recurring_id.fsm_concrete_frequency_set_id
+    
         res = self._fsm_create_fsm_common_prepare_values()
 
         def to_locale_datetime(some_date):
@@ -287,7 +294,9 @@ class ContractLine(models.Model):
         res["fsm_recurring_template_id"] = template.id
         res["description"] = note
         res["max_orders"] = template.max_orders
-        res["fsm_abstract_frequency_set_id"] = frequency_set.id
+        res["fsm_abstract_frequency_set_id"] = abstract_frequency_set.id
+        if concrete_frequency_set:
+            res["fsm_concrete_frequency_set_id"] = concrete_frequency_set.id
         res["fsm_order_template_id"] = template.fsm_order_template_id.id
         return res
 
@@ -395,3 +404,16 @@ class ContractLine(models.Model):
             # create recurring order
             elif line.product_id.field_service_tracking == "recurring":
                 line._field_find_fsm_recurring()
+
+    def stop(self, date_end, manual_renew_needed=False, post_message=True):
+        res = super().stop(date_end, manual_renew_needed, post_message)
+        # On stop, we need to cancel field service orders after the date end
+        for line in self:
+            if line.fsm_recurring_id:
+                line.fsm_recurring_id.fsm_order_ids.filtered(
+                    lambda fsm_order: (
+                        fsm_order.date_start or fsm_order.scheduled_date_start
+                    ).date()
+                    > date_end
+                ).unlink()
+        return res
