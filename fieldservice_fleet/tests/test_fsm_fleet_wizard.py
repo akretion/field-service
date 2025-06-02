@@ -9,7 +9,7 @@ from odoo.addons.fieldservice_fleet import hooks
 
 class TestFSMFleetWizard(TransactionCase):
     def setUp(self):
-        super(TestFSMFleetWizard, self).setUp()
+        super().setUp()
         self.Wizard = self.env["fsm.fleet.wizard"]
         self.fleet_vehicle_1 = self.env.ref("fleet.vehicle_1")
         self.person_1 = self.env.ref("fieldservice.person_1")
