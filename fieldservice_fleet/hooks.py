@@ -6,6 +6,7 @@ from odoo import SUPERUSER_ID, api
 
 def pre_init_hook(cr):
     # Check for existing fsm vehicles
+    cr = cr.cr
     cr.execute("SELECT * FROM fsm_vehicle")
     vehicles = []
     vehicles = cr.dictfetchall()
