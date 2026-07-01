@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="portal_my_fsm_orders_map_btn"
+        inherit_id="fieldservice_portal.portal_my_fsm_orders"
+    >
+        <xpath expr="//t[@t-call='portal.portal_searchbar']" position="inside">
+            <div
+                class="btn-group ml-lg-2 ms-lg-auto my-auto o_fsm_map_switcher"
+                role="group"
+                id="fsm_map_switcher_group"
+                style="z-index: 10;"
+            >
+                <button
+                    type="button"
+                    class="btn btn-secondary active"
+                    id="fsm_btn_view_list"
+                    title="Vue Liste"
+                >
+                    <i class="fa fa-th-list" />
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="fsm_btn_view_map"
+                    title="Vue Carte"
+                >
+                    <i class="fa fa-map-marker" /> Carte
+                </button>
+            </div>
+        </xpath>
+    </template>
+
+    <template
+        id="portal_my_fsm_orders_map"
+        inherit_id="fieldservice_portal.portal_my_fsm_orders"
+    >
+        <xpath expr="//t[@t-call='portal.portal_table']" position="after">
+            <div id="fsm_portal_map_container" class="d-none card mb-5 mt-3">
+                <div class="card-body p-0">
+                    <div
+                        id="fsm_portal_map_canvas"
+                        style="width: 100%; height: 500px; min-height: 500px; z-index: 1;"
+                    />
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
